@@ -1,0 +1,5 @@
+calendar_tests 2 0.00159263
+test_chinese 0 0
+test_gregorian 0 0
+test_islamic 0 0
+---

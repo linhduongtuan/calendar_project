@@ -1,0 +1,22 @@
+# calendar-config.cmake.in
+
+set(CALENDAR_VERSION "1.0.0")
+set(CALENDAR_VERSION_MAJOR "1")
+set(CALENDAR_VERSION_MINOR "0")
+set(CALENDAR_VERSION_PATCH "0")
+
+# Find the target file
+get_filename_component(CALENDAR_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+# Include the target file
+if(EXISTS "${CALENDAR_CMAKE_DIR}/calendar-targets.cmake")
+    include("${CALENDAR_CMAKE_DIR}/calendar-targets.cmake")
+endif()
+
+# Provide calendar library target
+if(TARGET calendar_lib)
+    set(CALENDAR_LIBRARIES calendar_lib)
+    set(CALENDAR_FOUND TRUE)
+else()
+    set(CALENDAR_FOUND FALSE)
+endif()

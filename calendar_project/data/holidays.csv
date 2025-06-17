@@ -1,0 +1,24 @@
+# data/holidays.csv
+Name,Description,CalendarType,HolidayType,Month,Day,Country,IsPublic
+New Year's Day,Beginning of the year,0,0,1,1,US,1
+Martin Luther King Jr. Day,Civil Rights Leader Birthday,0,4,1,15,US,1
+Presidents' Day,Washington and Lincoln Birthday,0,4,2,15,US,1
+Memorial Day,Honor fallen soldiers,0,4,5,25,US,1
+Independence Day,US Independence Day,0,0,7,4,US,1
+Labor Day,Workers' Day,0,4,9,1,US,1
+Columbus Day,Discovery of Americas,0,4,10,8,US,1
+Veterans Day,Honor military veterans,0,0,11,11,US,1
+Thanksgiving,US Thanksgiving,0,4,11,22,US,1
+Christmas Day,Christian celebration,0,0,12,25,US,1
+Chinese New Year,Lunar New Year,2,0,1,1,CN,1
+Dragon Boat Festival,Traditional Chinese Festival,2,0,5,5,CN,1
+Mid-Autumn Festival,Chinese Moon Festival,2,0,8,15,CN,1
+National Day,People's Republic of China,0,0,10,1,CN,1
+Eid al-Fitr,End of Ramadan,1,0,10,1,SA,1
+Eid al-Adha,Festival of Sacrifice,1,0,12,10,SA,1
+Mawlid,Prophet Muhammad's Birthday,1,0,3,12,SA,1
+Rosh Hashanah,Jewish New Year,3,0,1,1,IL,1
+Yom Kippur,Day of Atonement,3,0,1,10,IL,1
+Sukkot,Festival of Booths,3,0,1,15,IL,1
+Hanukkah,Festival of Lights,3,0,9,25,IL,1
+Passover,Freedom from Egypt,3,0,1,15,IL,1

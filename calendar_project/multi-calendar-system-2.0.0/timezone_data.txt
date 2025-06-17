@@ -1,0 +1,67 @@
+# Timezone Data for Calendar Conversions
+# Format: TimezoneID,UTCOffset,DSTOffset,Name,Region
+
+# Major World Timezones
+UTC,0,0,Coordinated Universal Time,Global
+GMT,0,0,Greenwich Mean Time,Europe/London
+EST,-5,1,Eastern Standard Time,America/New_York
+CST,-6,1,Central Standard Time,America/Chicago
+MST,-7,1,Mountain Standard Time,America/Denver
+PST,-8,1,Pacific Standard Time,America/Los_Angeles
+JST,9,0,Japan Standard Time,Asia/Tokyo
+KST,9,0,Korea Standard Time,Asia/Seoul
+CST_CHINA,8,0,China Standard Time,Asia/Shanghai
+IST,5.5,0,India Standard Time,Asia/Kolkata
+MSK,3,0,Moscow Standard Time,Europe/Moscow
+CET,1,1,Central European Time,Europe/Paris
+BST,0,1,British Summer Time,Europe/London
+AEST,10,1,Australian Eastern Standard Time,Australia/Sydney
+NZST,12,1,New Zealand Standard Time,Pacific/Auckland
+
+# Islamic Calendar Regions
+MECCA,3,0,Arabia Standard Time,Asia/Riyadh
+MEDINA,3,0,Arabia Standard Time,Asia/Riyadh
+CAIRO,2,0,Eastern European Time,Africa/Cairo
+ISTANBUL,3,0,Turkey Time,Europe/Istanbul
+JAKARTA,7,0,Western Indonesia Time,Asia/Jakarta
+KARACHI,5,0,Pakistan Standard Time,Asia/Karachi
+TEHRAN,3.5,1,Iran Standard Time,Asia/Tehran
+
+# Chinese Calendar Regions
+BEIJING,8,0,China Standard Time,Asia/Shanghai
+HONGKONG,8,0,Hong Kong Time,Asia/Hong_Kong
+TAIPEI,8,0,China Standard Time,Asia/Taipei
+SINGAPORE,8,0,Singapore Standard Time,Asia/Singapore
+
+# Historical Calendar References
+JULIAN_EPOCH,0,0,Julian Calendar Epoch,Historical
+GREGORIAN_EPOCH,0,0,Gregorian Calendar Epoch,Historical
+ISLAMIC_EPOCH,3,0,Islamic Calendar Epoch,Historical
+CHINESE_EPOCH,8,0,Chinese Calendar Epoch,Historical
+
+# Daylight Saving Time Rules
+# Format: DST_RULE,TimezoneID,StartMonth,StartWeek,StartDay,EndMonth,EndWeek,EndDay
+DST_RULE,EST,3,2,0,11,1,0
+DST_RULE,CST,3,2,0,11,1,0
+DST_RULE,MST,3,2,0,11,1,0
+DST_RULE,PST,3,2,0,11,1,0
+DST_RULE,CET,3,-1,0,10,-1,0
+DST_RULE,BST,3,-1,0,10,-1,0
+DST_RULE,AEST,10,1,0,4,1,0
+DST_RULE,NZST,9,-1,0,4,1,0
+
+# Leap Second Data (for high precision calculations)
+# Format: LEAP_SECOND,Year,Month,Day,Seconds
+LEAP_SECOND,2017,1,1,1
+LEAP_SECOND,2015,7,1,1
+LEAP_SECOND,2012,7,1,1
+LEAP_SECOND,2009,1,1,1
+LEAP_SECOND,2006,1,1,1
+LEAP_SECOND,1999,1,1,1
+LEAP_SECOND,1997,7,1,1
+LEAP_SECOND,1996,1,1,1
+LEAP_SECOND,1994,7,1,1
+LEAP_SECOND,1993,7,1,1
+LEAP_SECOND,1992,7,1,1
+LEAP_SECOND,1991,1,1,1
+LEAP_SECOND,1990,1,1,1

@@ -1,0 +1,81 @@
+# Chinese Calendar Data - Lunar Month Information
+# Format: Year,Month,Days,LeapMonth,MonthName
+# Year: Chinese lunar year
+# Month: Month number (1-12, 13 for leap month)
+# Days: Number of days in the month (29 or 30)
+# LeapMonth: 1 if this is a leap month, 0 otherwise
+# MonthName: Traditional Chinese month name
+
+2023,1,30,0,正月
+2023,2,29,0,二月
+2023,3,29,0,三月
+2023,4,30,0,四月
+2023,5,29,0,五月
+2023,6,30,0,六月
+2023,7,29,0,七月
+2023,8,30,0,八月
+2023,9,29,0,九月
+2023,10,30,0,十月
+2023,11,29,0,十一月
+2023,12,30,0,十二月
+
+2024,1,29,0,正月
+2024,2,30,0,二月
+2024,3,29,0,三月
+2024,4,29,0,四月
+2024,5,30,0,五月
+2024,6,29,0,六月
+2024,7,30,0,七月
+2024,8,29,0,八月
+2024,9,30,0,九月
+2024,10,29,0,十月
+2024,11,30,0,十一月
+2024,12,29,0,十二月
+
+2025,1,30,0,正月
+2025,2,29,0,二月
+2025,3,30,0,三月
+2025,4,29,0,四月
+2025,5,30,0,五月
+2025,6,29,0,六月
+2025,7,30,1,七月
+2025,7,29,0,七月
+2025,8,30,0,八月
+2025,9,29,0,九月
+2025,10,30,0,十月
+2025,11,29,0,十一月
+2025,12,30,0,十二月
+
+# Solar Terms Data
+# Format: SOLAR_TERM,Year,Month,Day,Hour,Minute
+SOLAR_TERM,2024,2,4,16,27,立春
+SOLAR_TERM,2024,2,19,12,13,雨水
+SOLAR_TERM,2024,3,5,22,23,惊蛰
+SOLAR_TERM,2024,3,20,11,6,春分
+SOLAR_TERM,2024,4,4,21,2,清明
+SOLAR_TERM,2024,4,20,4,59,谷雨
+SOLAR_TERM,2024,5,5,8,10,立夏
+SOLAR_TERM,2024,5,20,20,59,小满
+SOLAR_TERM,2024,6,5,12,10,芒种
+SOLAR_TERM,2024,6,21,4,51,夏至
+SOLAR_TERM,2024,7,6,22,20,小暑
+SOLAR_TERM,2024,7,22,15,44,大暑
+SOLAR_TERM,2024,8,7,9,13,立秋
+SOLAR_TERM,2024,8,22,22,55,处暑
+SOLAR_TERM,2024,9,7,11,11,白露
+SOLAR_TERM,2024,9,22,20,44,秋分
+SOLAR_TERM,2024,10,8,3,56,寒露
+SOLAR_TERM,2024,10,23,8,15,霜降
+SOLAR_TERM,2024,11,7,6,20,立冬
+SOLAR_TERM,2024,11,22,3,56,小雪
+SOLAR_TERM,2024,12,7,0,17,大雪
+SOLAR_TERM,2024,12,21,21,21,冬至
+
+# Traditional Festivals
+# Format: FESTIVAL,Month,Day,Name
+FESTIVAL,1,1,春节
+FESTIVAL,1,15,元宵节
+FESTIVAL,5,5,端午节
+FESTIVAL,7,7,七夕节
+FESTIVAL,8,15,中秋节
+FESTIVAL,9,9,重阳节

@@ -1,0 +1,35 @@
+# Doxyfile configuration for calendar system
+PROJECT_NAME           = "Calendar System"
+PROJECT_NUMBER         = @PROJECT_VERSION@
+PROJECT_BRIEF          = "Multi-Calendar System supporting Gregorian, Islamic, and Chinese calendars"
+
+OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/docs
+CREATE_SUBDIRS         = NO
+
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/include \
+                         @CMAKE_CURRENT_SOURCE_DIR@/src \
+                         @CMAKE_CURRENT_SOURCE_DIR@/README.md
+
+RECURSIVE              = YES
+FILE_PATTERNS          = *.c *.h *.md
+EXCLUDE_PATTERNS       = */tests/* */build/*
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+
+GENERATE_LATEX         = NO
+GENERATE_MAN           = YES
+MAN_OUTPUT             = man
+
+HAVE_DOT               = NO
+UML_LOOK               = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
