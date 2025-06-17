@@ -1,0 +1,54 @@
+# Build directories
+build/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+install_manifest.txt
+
+# Compiled binaries
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+calendar
+calendar_gui
+calendar_gui.app
+
+# Package files (we'll add them manually to releases)
+*.tar.gz
+*.zip
+*.dmg
+*.pkg
+multi-calendar-system-*/
+temp_*
+dmg_temp/
+pkg_build/
+pkg_scripts/
+pkg_resources/
+MultiCalendarSystem.pkg
+distribution.xml
+
+# IDE files
+.vscode/
+.idea/
+*.xcodeproj/
+*.xcworkspace/
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Log files
+*.log
+
+# User-specific config
+.calendar-config
