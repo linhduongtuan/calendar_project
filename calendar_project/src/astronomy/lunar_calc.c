@@ -169,6 +169,9 @@ double lunar_calculate_new_moon_precise(double julian_day) {
     F *= M_PI / 180.0;
     Omega *= M_PI / 180.0;
     
+    // Suppress unused variable warning
+    (void)Omega;
+    
     // Apply corrections
     double correction = 0.0;
     correction += -0.40720 * sin(M_sun);

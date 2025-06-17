@@ -8,6 +8,9 @@
 #include "../astronomy/lunar_calc.h"
 
 CalendarResult export_calendar_month(const ExportOptions* options, int month, int year) {
+    // Suppress unused parameter warnings
+    (void)month;
+    (void)year;
     if (!options) return CALENDAR_ERROR_NULL_POINTER;
     
     FILE* file = fopen(options->filename, "w");

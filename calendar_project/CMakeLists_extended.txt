@@ -1,0 +1,315 @@
+# CMakeLists_extended.txt - Enhanced Multi-Calendar System Build Configuration
+cmake_minimum_required(VERSION 3.10)
+project(MultiCalendarSystemExtended VERSION 2.1.0 LANGUAGES C OBJC)
+
+# Enhanced options for new features
+option(BUILD_GUI "Build GUI interface" OFF)
+option(BUILD_ASTRONOMY "Build astronomical calculations" ON)
+option(BUILD_SOLAR_CALC "Build solar calculations" ON)
+option(BUILD_PRAYER_TIMES "Build prayer times calculator" ON)
+option(BUILD_HOLIDAYS "Build holiday database support" ON)
+option(BUILD_TIMEZONE "Build timezone support" ON)
+option(BUILD_EXPORT "Build export functionality" ON)
+option(BUILD_PERSIAN_CALENDAR "Build Persian calendar support" ON)
+option(BUILD_BUDDHIST_CALENDAR "Build Buddhist calendar support" ON)
+option(BUILD_ETHIOPIAN_CALENDAR "Build Ethiopian calendar support" ON)
+option(BUILD_MAYA_CALENDAR "Build Maya calendar support" ON)
+option(BUILD_API_SERVER "Build REST API server" OFF)
+option(BUILD_DATABASE "Build database support" OFF)
+option(BUILD_TESTS "Build unit tests" ON)
+
+# Detect platform and set GUI framework
+if(BUILD_GUI)
+    if(APPLE)
+        enable_language(OBJC)
+        find_library(COCOA_LIBRARY Cocoa)
+        find_library(FOUNDATION_LIBRARY Foundation)
+        if(COCOA_LIBRARY AND FOUNDATION_LIBRARY)
+            message(STATUS "Cocoa found - macOS native GUI will be built")
+            set(GUI_LIBRARIES ${COCOA_LIBRARY} ${FOUNDATION_LIBRARY})
+            set(GUI_ENABLED TRUE)
+        else()
+            message(WARNING "Cocoa not found - GUI will be disabled")
+            set(BUILD_GUI OFF)
+        endif()
+    else()
+        message(WARNING "GUI only supported on macOS - GUI will be disabled")
+        set(BUILD_GUI OFF)
+    endif()
+endif()
+
+# Set C standard
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+# Compiler flags
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic")
+    set(CMAKE_C_FLAGS_DEBUG "-g -O0 -DDEBUG")
+    set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG")
+endif()
+
+# Include directories
+include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
+# Core calendar source files
+set(CALENDAR_SOURCES
+    src/calendars/gregorian.c
+    src/calendars/islamic.c
+    src/calendars/chinese.c
+    src/calendars/hebrew.c
+    src/calendars/lunar_base.c
+    src/calendars/calendar_registry.c
+)
+
+# Extended calendar sources
+if(BUILD_PERSIAN_CALENDAR)
+    list(APPEND CALENDAR_SOURCES src/calendars/persian.c)
+    add_definitions(-DBUILD_PERSIAN_CALENDAR)
+endif()
+
+if(BUILD_BUDDHIST_CALENDAR)
+    list(APPEND CALENDAR_SOURCES src/calendars/buddhist.c)
+    add_definitions(-DBUILD_BUDDHIST_CALENDAR)
+endif()
+
+if(BUILD_ETHIOPIAN_CALENDAR)
+    list(APPEND CALENDAR_SOURCES src/calendars/ethiopian.c)
+    add_definitions(-DBUILD_ETHIOPIAN_CALENDAR)
+endif()
+
+if(BUILD_MAYA_CALENDAR)
+    list(APPEND CALENDAR_SOURCES src/calendars/maya.c)
+    add_definitions(-DBUILD_MAYA_CALENDAR)
+endif()
+
+# Utility source files
+set(UTILITY_SOURCES
+    src/utils/date_utils.c
+    src/utils/calendar_math.c
+    src/utils/validation.c
+)
+
+# UI source files
+set(UI_SOURCES
+    src/ui/console_ui.c
+)
+
+# Astronomy source files
+set(ASTRONOMY_SOURCES)
+if(BUILD_ASTRONOMY)
+    list(APPEND ASTRONOMY_SOURCES src/astronomy/lunar_calc.c)
+    add_definitions(-DBUILD_ASTRONOMY)
+endif()
+
+if(BUILD_SOLAR_CALC)
+    list(APPEND ASTRONOMY_SOURCES src/astronomy/solar_calc.c)
+    add_definitions(-DBUILD_SOLAR_CALC)
+endif()
+
+# Religious calculation sources
+set(RELIGIOUS_SOURCES)
+if(BUILD_PRAYER_TIMES)
+    list(APPEND RELIGIOUS_SOURCES src/religious/prayer_times.c)
+    add_definitions(-DBUILD_PRAYER_TIMES)
+endif()
+
+# Holiday database sources
+set(HOLIDAY_SOURCES)
+if(BUILD_HOLIDAYS)
+    list(APPEND HOLIDAY_SOURCES src/holidays/holiday_db.c)
+    add_definitions(-DBUILD_HOLIDAYS)
+endif()
+
+# Timezone sources
+set(TIMEZONE_SOURCES)
+if(BUILD_TIMEZONE)
+    list(APPEND TIMEZONE_SOURCES src/timezone/timezone.c)
+    add_definitions(-DBUILD_TIMEZONE)
+endif()
+
+# Export sources
+set(EXPORT_SOURCES)
+if(BUILD_EXPORT)
+    list(APPEND EXPORT_SOURCES 
+        src/export/csv_export.c
+        src/export/ical_export.c
+        src/export/json_export.c
+        src/export/pdf_export.c
+    )
+    add_definitions(-DBUILD_EXPORT)
+endif()
+
+# API server sources
+set(API_SOURCES)
+if(BUILD_API_SERVER)
+    list(APPEND API_SOURCES src/api/rest_server.c)
+    add_definitions(-DBUILD_API_SERVER)
+endif()
+
+# Database sources
+set(DATABASE_SOURCES)
+if(BUILD_DATABASE)
+    list(APPEND DATABASE_SOURCES src/database/sqlite_backend.c)
+    add_definitions(-DBUILD_DATABASE)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(SQLITE3 REQUIRED sqlite3)
+endif()
+
+# Localization sources
+set(LOCALIZATION_SOURCES
+    src/localization/i18n.c
+)
+
+# Combine all sources
+set(ALL_SOURCES
+    ${CALENDAR_SOURCES}
+    ${UTILITY_SOURCES}
+    ${UI_SOURCES}
+    ${ASTRONOMY_SOURCES}
+    ${RELIGIOUS_SOURCES}
+    ${HOLIDAY_SOURCES}
+    ${TIMEZONE_SOURCES}
+    ${EXPORT_SOURCES}
+    ${API_SOURCES}
+    ${DATABASE_SOURCES}
+    ${LOCALIZATION_SOURCES}
+)
+
+# Math library
+find_library(MATH_LIBRARY m)
+
+# Main CLI executable
+add_executable(calendar_extended src/main_extended.c ${ALL_SOURCES})
+
+# Link libraries
+target_link_libraries(calendar_extended ${MATH_LIBRARY})
+
+if(BUILD_DATABASE)
+    target_link_libraries(calendar_extended ${SQLITE3_LIBRARIES})
+    target_include_directories(calendar_extended PRIVATE ${SQLITE3_INCLUDE_DIRS})
+endif()
+
+# GUI executable (macOS only)
+if(BUILD_GUI AND GUI_ENABLED)
+    set(GUI_SOURCES
+        src/gui/AppDelegate.m
+        src/gui/CalendarViewController.m
+        src/gui/HolidayViewController.m
+        src/gui/ExportViewController.m
+        src/gui/PreferencesViewController.m
+        src/gui/AstronomyViewController.m
+        src/gui/PrayerTimesViewController.m
+        src/gui_main.m
+    )
+    
+    add_executable(calendar_gui_extended ${GUI_SOURCES} ${ALL_SOURCES})
+    target_link_libraries(calendar_gui_extended ${GUI_LIBRARIES} ${MATH_LIBRARY})
+    
+    if(BUILD_DATABASE)
+        target_link_libraries(calendar_gui_extended ${SQLITE3_LIBRARIES})
+    endif()
+    
+    # Set bundle properties for macOS app
+    set_target_properties(calendar_gui_extended PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Info.plist
+        MACOSX_BUNDLE_BUNDLE_NAME "Multi-Calendar System Extended"
+        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
+        MACOSX_BUNDLE_IDENTIFIER "com.linhduongtuan.calendar.extended"
+    )
+endif()
+
+# Unit tests
+if(BUILD_TESTS)
+    enable_testing()
+    
+    # Test sources
+    set(TEST_SOURCES
+        tests/test_gregorian.c
+        tests/test_islamic.c
+        tests/test_persian.c
+        tests/test_astronomy.c
+        tests/test_prayer_times.c
+        tests/test_conversions.c
+        tests/test_registry.c
+    )
+    
+    foreach(test_source ${TEST_SOURCES})
+        get_filename_component(test_name ${test_source} NAME_WE)
+        add_executable(${test_name} ${test_source} ${ALL_SOURCES})
+        target_link_libraries(${test_name} ${MATH_LIBRARY})
+        
+        if(BUILD_DATABASE)
+            target_link_libraries(${test_name} ${SQLITE3_LIBRARIES})
+        endif()
+        
+        add_test(NAME ${test_name} COMMAND ${test_name})
+    endforeach()
+endif()
+
+# Installation
+install(TARGETS calendar_extended DESTINATION bin)
+
+if(BUILD_GUI AND GUI_ENABLED)
+    install(TARGETS calendar_gui_extended DESTINATION /Applications)
+endif()
+
+# Install data files
+install(DIRECTORY data/ DESTINATION share/calendar_extended/data)
+install(DIRECTORY docs/ DESTINATION share/calendar_extended/docs)
+
+# Install headers for development
+install(DIRECTORY include/ DESTINATION include/calendar_extended)
+
+# Package configuration
+set(CPACK_PACKAGE_NAME "MultiCalendarSystemExtended")
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Enhanced Multi-Calendar System with Astronomical Calculations")
+set(CPACK_PACKAGE_VENDOR "Linh Duong Tuan")
+set(CPACK_PACKAGE_CONTACT "linhduongtuan@example.com")
+
+if(APPLE)
+    set(CPACK_GENERATOR "DragNDrop;PackageMaker")
+    set(CPACK_DMG_VOLUME_NAME "Multi-Calendar System Extended")
+    set(CPACK_DMG_FORMAT "UDBZ")
+elseif(UNIX)
+    set(CPACK_GENERATOR "TGZ;DEB;RPM")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libm6")
+    set(CPACK_RPM_PACKAGE_REQUIRES "glibc, libm")
+endif()
+
+include(CPack)
+
+# Print configuration summary
+message(STATUS "")
+message(STATUS "Multi-Calendar System Extended Configuration Summary:")
+message(STATUS "====================================================")
+message(STATUS "Version: ${PROJECT_VERSION}")
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "")
+message(STATUS "Features:")
+message(STATUS "  GUI interface: ${BUILD_GUI}")
+message(STATUS "  Astronomical calculations: ${BUILD_ASTRONOMY}")
+message(STATUS "  Solar calculations: ${BUILD_SOLAR_CALC}")
+message(STATUS "  Prayer times: ${BUILD_PRAYER_TIMES}")
+message(STATUS "  Holiday database: ${BUILD_HOLIDAYS}")
+message(STATUS "  Timezone support: ${BUILD_TIMEZONE}")
+message(STATUS "  Export functionality: ${BUILD_EXPORT}")
+message(STATUS "  API server: ${BUILD_API_SERVER}")
+message(STATUS "  Database support: ${BUILD_DATABASE}")
+message(STATUS "")
+message(STATUS "Calendar Systems:")
+message(STATUS "  Persian calendar: ${BUILD_PERSIAN_CALENDAR}")
+message(STATUS "  Buddhist calendar: ${BUILD_BUDDHIST_CALENDAR}")
+message(STATUS "  Ethiopian calendar: ${BUILD_ETHIOPIAN_CALENDAR}")
+message(STATUS "  Maya calendar: ${BUILD_MAYA_CALENDAR}")
+message(STATUS "")
+message(STATUS "Development:")
+message(STATUS "  Unit tests: ${BUILD_TESTS}")
+message(STATUS "")
+message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "====================================================")
+message(STATUS "")

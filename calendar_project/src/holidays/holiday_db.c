@@ -64,15 +64,15 @@ CalendarResult holiday_db_load_from_file(HolidayDatabase* db, const char* filena
     }
     
     char line[512];
-    int line_count = 0;
+    // int line_count = 0; // Unused variable
     
     // Skip header line
     if (fgets(line, sizeof(line), file)) {
-        line_count++;
+        // Header line processed
     }
     
     while (fgets(line, sizeof(line), file) && db->count < MAX_HOLIDAYS) {
-        line_count++;
+        // Process data line
         
         // Remove newline
         line[strcspn(line, "\n")] = 0;
